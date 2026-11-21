@@ -1,0 +1,23 @@
+{
+"cafes":[
+{"id":"shoonya","n":"Shoonya | शून्य","a":"Navrangpura","hr":"closes 10pm","cl":22,"tg":"concrete & teak","sc":8.1,"s":[8,9,8.5,8,7.5],"ph":"07862827658","p":["work","solo","date","group"],"cr":["coffee","meal","light"],"im":["night","table","shelf","sando","bowl","bar","drinks"],
+"vd":"Specialty coffee in a concrete-and-teak room, with a menu that goes well past coffee.",
+"hl":"The concrete is cold. The teak makes up for it. The menu keeps going after the coffee ends.",
+"rd":"Shoonya is a specialty coffee place that quietly decided to also be a very good lunch. <mark>The concrete is cold, but the teak makes up for it</mark>, and the room keeps you sitting long after the latte is done. <mark>Order the sando. Thank us later.</mark> Nobody hovers, and the bill behaves right up until you order a second round.",
+"tk":["The sando is the reason to come. The latte at the bar is properly made.","Concrete that’s been softened with teak, on purpose.","The light does half the work, and you never have to move a chair.","Nobody hovers, and someone notices when you’re ready.","Fair for one coffee and one plate. Order a second round and the total has opinions."],
+"mn":"It’s popular, so evenings and weekends mean waiting for a table. If you want to work in peace, go on a weekday morning.","mns":"Evenings and weekends mean waiting for a table.","bt":"Weekday mornings, before the laptop crowd.",
+"ord":["The sando","Latte at the bar","The veg bowl"],"skp":["A second round of everything","Peak weekend hours if you hate waiting"],"si":"you want a silent library that happens to serve coffee."},
+{"id":"ks","n":"K’s Charcoal","a":"Sindhu Bhavan Marg","hr":"closes 12am","cl":24,"tg":"book ahead","sc":8.4,"s":[9,9,9.5,8,6.5],"ph":"08849778846","p":["date","group","dinner"],"cr":["pizza","meal"],"nt":"Reservations required · Outdoor seating","im":["kfire","kpizza","kpasta","kgarden","kanytime"],
+"vd":"Wood-fired Neapolitan pizza and fresh pasta, in a room built around the ovens.",
+"hl":"The oven is the main character. Everything else is a very good supporting cast.",
+"rd":"K’s Charcoal is built around its ovens, and the whole room seems to know it. <mark>The pizza is soft, blistered and completely unbothered.</mark> The fresh pasta holds its own, the garden out back is a bonus, and every photo looks planned. It wasn’t. <mark>You’re paying for the oven, and the bill says so.</mark>",
+"tk":["Soft, blistered wood-fired crust, and pasta that holds its own.","A room built around the ovens, with a garden out back.","Wood fire does the lighting for free. Sit near the ovens.","Steady and unhurried, and good at pacing a long dinner.","Where the score drops. Worth it shared between two, painful solo."],
+"mn":"You need a reservation. It closes late but fills early, walk-ins are a gamble, and the bill climbs fast if everyone orders their own plate.","mns":"Needs a reservation, and the bill climbs fast.","bt":"Weekday dinners. Book ahead on weekends.",
+"ord":["The wood-fired pizza","The fresh ravioli"],"skp":["Walking in without a booking","A solo order if you’re watching the bill"],"si":"you want a quick coffee and a laptop."}
+],
+"demo":[
+{"id":"d1","demo":1,"n":"Chai & Chapters","a":"Satellite","hr":"closes 11pm","cl":23,"p":["work","solo","group"],"cr":["coffee","light"],"sc":7.6,"s":[7,8,7.5,8,9],"im":["shelf"],"mn":"Gets loud after 6pm.","bt":"Weekday afternoons."},
+{"id":"d2","demo":1,"n":"The Rooftop Tiffin","a":"Bodakdev","hr":"closes 11pm","cl":23,"p":["date","group","dinner"],"cr":["meal"],"sc":7.2,"s":[8,8.5,9,6.5,6],"im":["kgarden"],"mn":"Service slows down when it’s full.","bt":"Early dinner, before 8pm."},
+{"id":"d3","demo":1,"n":"Bean Counter","a":"Prahlad Nagar","hr":"closes 9pm","cl":21,"p":["work","solo"],"cr":["coffee","light"],"sc":7,"s":[7.5,6.5,6,8.5,9],"im":["drinks"],"mn":"Seats are tight at lunchtime.","bt":"Mid-morning."},
+{"id":"d4","demo":1,"n":"Slice Society","a":"CG Road","hr":"closes 12am","cl":24,"p":["group","dinner"],"cr":["pizza","meal"],"sc":7.3,"s":[7.5,7,7.5,7,8.5],"im":["kpizza"],"mn":"Crust is hit or miss on busy nights.","bt":"Weeknights."}
+]}

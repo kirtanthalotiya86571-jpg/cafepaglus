@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /cafe-detail.html
+Sitemap: https://www.cafepaglus.com/sitemap.xml
