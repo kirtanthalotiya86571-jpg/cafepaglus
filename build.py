@@ -5,7 +5,7 @@ import json, os, re, glob, html
 from PIL import Image, ImageDraw, ImageFont
 
 R = os.path.dirname(os.path.abspath(__file__)); P = lambda *a: os.path.join(R, *a)
-DOMAIN = 'https://www.cafepaglus.com'   # TODO: set your real domain, then rebuild
+DOMAIN = 'https://cafepaglus.pages.dev'   # TODO: set your real domain, then rebuild
 esc = lambda s: html.escape(s, quote=True)
 nm = lambda c: c['n'].split('|')[0].strip()
 band = lambda s: 'go this week' if s >= 8.5 else 'worth a trip' if s >= 7.5 else 'good if you’re nearby' if s >= 6.5 else 'only if you know why'

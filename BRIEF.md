@@ -84,3 +84,12 @@ Also open: desktop filter sidebar and area / pure-veg / parking filters on the l
 4. Test in a real browser at phone (390px) and desktop widths: no console errors, no sideways scroll, every button works.
 5. Return the new or changed files. Put the full site in a zip only if asked.
 6. Never invent facts about real cafes, people or money. Mark anything invented as a placeholder.
+
+## Navigation, transitions and loading screen (all in `site.js`)
+- The header is built by `SITE.nav()` on every page that has `<header id="hd">`, so every page matches. It is a dark floating bar (stays readable on light or dark pages), lime marks the current page, and on phones the links move into a full-screen menu. The picker (`pick.html`) and cafe pages keep their own task-specific top bars on purpose.
+- Page changes use a short crossfade (cross-document View Transitions, where the browser supports it), links are prefetched when someone is about to tap, and a thin lime line shows while a slow page loads.
+- On hosts that serve clean addresses (Cloudflare Pages), links point straight to `/list` instead of `list.html`, which saves a redirect on every click. It switches itself off from a folder, on localhost, or if the host does not clean addresses.
+- The loading screen (steaming cup) plays once per visit, on the home page only, never on a shared cafe link, never with reduced motion, and a tap skips it.
+- The cafe page back arrow (`data-back`) goes back to where the visitor came from, filters included; with no history it goes to the list.
+- The bar's bottom edge sits at 58px, where the sticky filter chips on the list and home pages begin. Keep it there if you change the bar height.
+
