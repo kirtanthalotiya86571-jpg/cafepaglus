@@ -103,25 +103,25 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation-duration:.01s!important;animation-delay:0s!important;transition:none!important}}
 </style></head><body>
 <div id="pg"></div>
-<header id="hd"></header><script>SITE.nav()</script>
+<header id="hd"></header><script>SITE.nav()</script><script src="nav.js"></script>
 <main id="top">
 <section class="hero"><div class="w hc"><div>
 <div class="lbl fade"><i></i>Ahmedabad cafe reviews</div>
 <h1 id="h1"></h1>
 <p class="lede fade">We visit every cafe ourselves and score what matters: food, vibe, service and value. So you know before you go.</p>
-<a class="pill fade" href="#list">See the scores</a> <a class="pill fade" href="about.html" style="margin-top:10px;background:transparent;color:inherit;box-shadow:inset 0 0 0 2px currentColor">Our story</a>
+<a class="pill fade" href="list.html">See the scores</a> <a class="pill fade" href="about.html" style="margin-top:10px;background:transparent;color:inherit;box-shadow:inset 0 0 0 2px currentColor">Our story</a>
 <p class="tr0 fade"><b>✓</b> We pay for our own meals. No sponsored reviews.</p></div>
 <div class="hp fade" id="hp" role="group" aria-label="photos from cafes we’ve scored, swipe to see more" tabindex="0"></div></div></section>
 <section class="sec w" id="explore" style="padding-bottom:0"><div class="script" style="font-size:34px">start here</div><h2>Not sure where to go? Pick a door.</h2>
 <div class="ex">
-<a style="--b:var(--acc)" href="#list"><div><small>browse</small><b>The list</b></div><span><p id="exn">Every cafe, scored 5 ways</p><i>→</i></span></a>
+<a style="--b:var(--acc)" href="list.html"><div><small>browse</small><b>The list</b></div><span><p id="exn">Every cafe, scored 5 ways</p><i>→</i></span></a>
 <a style="--b:var(--blue)" href="#how"><div><small>the method</small><b>How we score</b></div><span><p>5 questions, not 1 star</p><i>→</i></span></a>
 <a style="--b:var(--sau)" href="about.html"><div><small>the why</small><b>Our story</b></div><span><p>Why we built this</p><i>→</i></span></a>
 </div></section>
 <section class="sec w st" id="story"><div><div class="script">the problem</div><h2>Picking a cafe shouldn’t take an hour.</h2><p class="ld">Reels are ads. Google gives every place 4.5 stars. Tap through to see why we built this.</p><a class="pill" href="about.html" style="margin-top:14px">Read our story</a></div>
 <div><div class="sv2" id="sv" tabindex="0" role="region" aria-label="the problem, tap or swipe through"><div class="sp" id="sp"></div><div id="ss"></div></div><p class="hint">tap the sides or swipe. press and hold to pause.</p></div></section>
 <section class="sec w" id="list"><h2>Every cafe. One place. Real scores.</h2><p class="sub">Each cafe is scored on five things that matter when you’re actually there. Pick the one you care about most.</p>
-<div class="row" id="ch"></div><div class="grid" id="gr"></div></section>
+<div class="row" id="ch"></div><div class="grid" id="gr"></div><a class="pill" href="list.html" style="margin-top:20px">See the full list →</a></section>
 <section class="sec w" id="pick"><div class="mmw"><h2>Can’t decide? We’ll pick.</h2><a class="pill" href="pick.html" style="margin-top:14px">Try the 4-tap picker</a><div class="mm"><div><div class="lab">what’s the plan?</div><div class="row" id="mp"></div><div class="lab">what matters most?</div><div class="row" id="mw"></div><p id="mn"></p></div><div id="mr"></div></div></div></section>
 <section class="sec w" id="how"><div class="hw">
 <div class="script" style="font-size:34px">how we score</div><h2>Google gives one number. We ask five questions.</h2><p class="sub">A 4.5 can hide bad service or a great plate. So every cafe gets five separate scores, plus one overall that’s our honest gut call.</p>
@@ -130,11 +130,10 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
 </div></section>
 <section class="sec w" id="trust"><div class="script" style="font-size:34px">why trust us</div><h2>We’re just people who really like cafes.</h2>
 <div class="tl"><div class="tr"><b>We pay.</b><p>Our own money, every meal. Nobody gets to hand us a free dessert.</p></div><div class="tr"><b>We go twice.</b><p>One good day isn’t a pattern. We check before we score.</p></div><div class="tr"><b>We say the bad part.</b><p>Every cafe gets its “maybe not”, even the ones we love.</p></div><div class="tr"><b>No sponsors.</b><p>No paid posts. A high score here can’t be bought.</p></div></div></section>
-<section class="end"><div class="w"><div class="script">see you at the next table.</div><h2>Find your next cafe.</h2><a class="pill" href="#list">See the scores</a>
+<section class="end"><div class="w"><div class="script">see you at the next table.</div><h2>Find your next cafe.</h2><a class="pill" href="list.html">See the scores</a>
 <form class="sg" id="sf"><input id="si" placeholder="a cafe we should visit?" aria-label="suggest a cafe"><button class="pill">send it</button></form></div>
 <footer data-foot></footer><script>SITE.foot()</script></section>
 </main>
-<nav id="dock" aria-label="site"><a href="#top" class="on">Home</a><a href="#list">List</a><a href="#how">How we score</a><a href="about.html">Our story</a></nav>
 <div class="shd" id="shd"><div class="bk" data-x></div><div class="sh" role="dialog" aria-label="saved cafes"><div class="hd"></div><h3>saved for later</h3><div id="sl"></div><a class="pill" id="sw" target="_blank" rel="noopener">send to the group chat</a></div></div>
 <div id="t" role="status"></div>
 <script>
@@ -160,7 +159,7 @@ const SL=[['#351E28','#fff','sound familiar?',U([['best cafe in ahmedabad for fr
 ['#FF5C34','#0B0B0B','but then reality shows up',U([['× average food','b'],['× rude service','b'],['× no table','b']]),'The food is average. The service is rude. There’s no table.','The reel never mentioned that.'],
 ['#D7EFFF','#0B0B0B','why this keeps happening',U([['Paid partnership','s'],['★ 4.5','b']]),'That reel was an ad. And 4.5 stars can’t tell you what matters.','Food, vibe, service and value all get squashed into one number.'],
 ['#AEB8A0','#0B0B0B','so we made the fix','','Every cafe in one place. Scored on what matters.','We visit. We pay for our own meals. We tell you the truth.',1]];
-const sv=$('#sv'),sp=$('#sp');$('#ss').innerHTML=SL.map(s=>`<div class="sl" style="background:${s[0]};color:${s[1]}"><div class="script">${s[2]}</div>${s[3]}<h3>${s[4]}</h3><p>${s[5]}</p>${s[6]?'<a class="pill" href="#list">see the list</a>':''}</div>`).join('');
+const sv=$('#sv'),sp=$('#sp');$('#ss').innerHTML=SL.map(s=>`<div class="sl" style="background:${s[0]};color:${s[1]}"><div class="script">${s[2]}</div>${s[3]}<h3>${s[4]}</h3><p>${s[5]}</p>${s[6]?'<a class="pill" href="list.html">see the list</a>':''}</div>`).join('');
 sp.innerHTML=SL.map(()=>'<i><b></b></i>').join('');const sls=[...$('#ss').children],sg=[...sp.children];let si=0;
 const sgo=n=>{si=Math.max(0,Math.min(SL.length-1,n));sls.forEach((e,i)=>e.classList.toggle('on',i==si));sg.forEach((e,i)=>e.className=i<si?'d':i==si?'a':'')};sgo(0);
 sp.addEventListener('animationend',()=>{if(si<SL.length-1)sgo(si+1)});
@@ -203,12 +202,12 @@ else if(d.c){e.preventDefault();location.href=SITE.cafeUrl(d.c)}});
 document.addEventListener('scroll',e=>{const g=e.target;if(!g.classList||!g.classList.contains('gal'))return;const i=Math.round(g.scrollLeft/g.clientWidth);g.parentNode.querySelectorAll('.dots i').forEach((d,j)=>d.classList.toggle('on',i==j))},true);
 $('#sf').addEventListener('submit',e=>{e.preventDefault();const v=$('#si').value.trim();if(!v)return toast('type a cafe name first');location.href='suggest.html?q='+encodeURIComponent(v)});
 /* scroll */
-const hd=$('#hd'),pg=$('#pg'),dk=$('#dock');let tk=false;
+const hd=$('#hd'),pg=$('#pg'),dk=$('#tabs');let tk=false;
 const onS=()=>{tk=false;const y=scrollY,vh=innerHeight,h=document.documentElement.scrollHeight-vh;pg.style.transform=`scaleX(${h>0?y/h:0})`;hd.classList.toggle('s',y>vh*.7);if(y<vh*.6)dl.forEach(a=>a.classList.toggle('on',a.getAttribute('href')=='#top'))};
 addEventListener('scroll',()=>{if(!tk){tk=true;requestAnimationFrame(onS)}},{passive:true});
 new IntersectionObserver(en=>{const r=en[0].intersectionRatio;if(!rm)sv.classList.toggle('play',r>=.6);dk.classList.toggle('hide',r>=.35)},{threshold:[0,.35,.6]}).observe(sv);
 const once=(el,fn,th)=>new IntersectionObserver((en,o)=>en.forEach(x=>{if(x.isIntersecting){fn(x.target);o.disconnect()}}),{threshold:th||.3}).observe(el);
 $$('.tr').forEach(el=>once(el,x=>x.classList.add("vis"),.4));
-const dl=$$('#dock a'),io=new IntersectionObserver(en=>en.forEach(x=>{if(x.isIntersecting)dl.forEach(a=>a.classList.toggle('on',a.getAttribute('href')=='#'+x.target.id))}),{rootMargin:'-45% 0px -50% 0px'});['explore','story','list','pick','how'].forEach(i=>io.observe($('#'+i)));
+const dl=$$('#tabs a'),io=new IntersectionObserver(en=>en.forEach(x=>{if(x.isIntersecting)dl.forEach(a=>a.classList.toggle('on',a.getAttribute('href')=='#'+x.target.id))}),{rootMargin:'-45% 0px -50% 0px'});['explore','story','list','pick','how'].forEach(i=>io.observe($('#'+i)));
 save();onS();
 </script></body></html>
