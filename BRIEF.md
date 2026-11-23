@@ -69,7 +69,7 @@ Recurring components (copy from the existing pages, don’t reinvent): fixed hea
 | 404 | `404.html` | done (noindex, not in sitemap) |
 | Suggest a cafe | `suggest.html` | done (opens the visitor’s WhatsApp or email with a ready message; needs `SITE.contact` filled in `site.js`). The forms on home, list and story now send people here. |
 | Privacy, Terms | `privacy.html`, `terms.html` | done, drafted from what the site actually does. Have them read by the owner, and by a lawyer if possible |
-| Admin | `admin.html` + `functions/api/save.js` | done. Private, behind Cloudflare Access. Adds or updates a cafe; it cannot delete one |
+| Admin | `admin.html` + `functions/api/save.js` | done. Private, behind Cloudflare Access. Lists all cafes (and the placeholder ones), adds, edits and deletes. Edit loads everything including photos; the page id is locked. Delete also removes the cafe's page, share image and any photos no other cafe uses |
 | Later | saved page, area pages (“best cafes in Bodakdev”), newsletter | after launch |
 
 ## Placeholders that need real info
@@ -92,4 +92,9 @@ Also open: desktop filter sidebar and area / pure-veg / parking filters on the l
 - The loading screen (steaming cup) plays once per visit, on the home page only, never on a shared cafe link, never with reduced motion, and a tap skips it.
 - The cafe page back arrow (`data-back`) goes back to where the visitor came from, filters included; with no history it goes to the list.
 - The bar's bottom edge sits at 58px, where the sticky filter chips on the list and home pages begin. Keep it there if you change the bar height.
+
+## Things that must stay true so deleting or editing cafes never breaks the site
+- No page may assume a particular cafe exists. The home photo strip (`HP` in `index.html`) keeps its captions only while the cafe and photo still exist, then tops up from the remaining cafes.
+- `build.py` removes pages, share images and built photos that no longer belong to any cafe, and warns (instead of crashing) when a cafe has no usable hero photo.
+- `cafe-detail.html` is the template, never a cafe: the id `detail` is reserved.
 

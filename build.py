@@ -54,13 +54,30 @@ def icons():
     json.dump({'name': 'cafepaglus', 'short_name': 'cafepaglus', 'description': 'Honest cafe scores for Ahmedabad', 'start_url': 'index.html', 'display': 'standalone', 'background_color': '#351E28', 'theme_color': '#351E28',
                'icons': [{'src': f'icon-{n}.png', 'sizes': f'{n}x{n}', 'type': 'image/png'} for n in (192, 512)]}, open(P('manifest.webmanifest'), 'w'), indent=1)
 
+def prune(D):
+    """Remove generated files that no longer belong to any cafe (a deleted cafe's page, share image and unused photos)."""
+    pages = {f'cafe-{c["id"]}.html' for c in D['cafes']} | {'cafe-detail.html'}
+    for f in glob.glob(P('cafe-*.html')):
+        if os.path.basename(f) not in pages: os.remove(f); print('removed old page', os.path.basename(f))
+    shares = {f'og-{c["id"]}.jpg' for c in D['cafes']} | {'og.jpg'}
+    for f in glob.glob(P('img', 'og-*.jpg')):
+        if os.path.basename(f) not in shares: os.remove(f)
+    srcs = {os.path.splitext(os.path.basename(f))[0] for f in glob.glob(P('photos', '*'))}
+    if srcs:   # only when the originals folder is present, so a missing folder never wipes the images
+        keep = {k + sfx + '.webp' for k in srcs for sfx in ('', '-sm')}
+        for f in glob.glob(P('img', '*.webp')):
+            if os.path.basename(f) not in keep: os.remove(f)
+
 def build():
     photos(); icons(); D = json.load(open(P('data', 'cafes.json'), encoding='utf-8'))
     open(P('data', 'cafes.js'), 'w', encoding='utf-8').write('window.CAFES=' + json.dumps(D, ensure_ascii=False) + ';')
-    og('og.jpg', 'kfire', 'Is that cafe actually good?', 'Honest cafe scores for Ahmedabad')
+    hero = next((k for k in ['kfire'] + [c['im'][0] for c in D['cafes'] if c.get('im')] if os.path.exists(P('img', k + '.webp'))), None)
+    if hero: og('og.jpg', hero, 'Is that cafe actually good?', 'Honest cafe scores for Ahmedabad')
+    else: print('WARNING: no cafe photo found, so img/og.jpg was not remade')
     tpl = open(P('cafe-detail.html'), encoding='utf-8').read(); urls = ['index.html', 'list.html', 'pick.html']
     for c in D['cafes']:
-        og(f'og-{c["id"]}.jpg', c['im'][0], nm(c), f'{c["a"]} · {band(c["sc"])}', c['sc'])
+        try: og(f'og-{c["id"]}.jpg', c['im'][0], nm(c), f'{c["a"]} · {band(c["sc"])}', c['sc'])
+        except (FileNotFoundError, IndexError, KeyError): print(f'WARNING: cafe {c["id"]} has no usable hero photo, so its share image was skipped')
         ld = json.dumps({'@context': 'https://schema.org', '@type': 'CafeOrCoffeeShop', 'name': nm(c), 'telephone': '+91' + c['ph'].lstrip('0'),
                          'address': {'@type': 'PostalAddress', 'streetAddress': c['a'], 'addressLocality': 'Ahmedabad', 'addressRegion': 'Gujarat', 'addressCountry': 'IN'}}, ensure_ascii=False)
         h = head(f'{nm(c)} review: {c["sc"]:.1f}/10, {band(c["sc"])} | cafepaglus', c['hl'], f'cafe-{c["id"]}.html', f'img/og-{c["id"]}.jpg',
@@ -69,6 +86,7 @@ def build():
         open(P(f'cafe-{c["id"]}.html'), 'w', encoding='utf-8').write(out); urls.append(f'cafe-{c["id"]}.html')
     for extra in ('about.html', 'suggest.html', 'privacy.html', 'terms.html'):
         if os.path.exists(P(extra)): urls.append(extra)
+    prune(D)
     open(P('sitemap.xml'), 'w').write('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + ''.join(f'<url><loc>{DOMAIN}/{u}</loc></url>' for u in urls) + '</urlset>')
     open(P('robots.txt'), 'w').write(f'User-agent: *\nAllow: /\nDisallow: /cafe-detail.html\nSitemap: {DOMAIN}/sitemap.xml\n')
     print('built', len(D['cafes']), 'cafe pages,', len(glob.glob(P('img', '*.webp'))), 'images')

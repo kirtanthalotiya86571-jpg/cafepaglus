@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Add a cafe | cafepaglus admin</title>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Manage cafes | cafepaglus admin</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;700;800&display=swap">
 <style>
 :root{--bg:#F4F4F4;--card:#fff;--ink:#0B0B0B;--mut:#5f5f5f;--line:#e3e3e3;--acc:#E9F056;--bad:#FF5C34;--cas:#351E28}
@@ -16,16 +16,20 @@ input:focus,textarea:focus,select:focus,button:focus-visible{outline:3px solid v
 .sc{display:grid;grid-template-columns:1fr 64px;gap:4px 12px;align-items:center;margin-bottom:6px}.sc input[type=range]{padding:0;min-height:36px;accent-color:#0B0B0B}.sc output{background:var(--acc);color:#0B0B0B;border-radius:16px;text-align:center;font-weight:800;padding:6px}.sc input[type=text]{grid-column:1/-1}
 #tot{background:var(--acc);color:#0B0B0B;border-radius:24px;padding:14px 18px;font-weight:800;margin-top:10px}.warn{color:var(--bad);font-weight:700;margin-top:6px}
 .bar{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);padding:12px 20px;display:flex;gap:10px;justify-content:center;align-items:center;flex-wrap:wrap}#msg{width:100%;text-align:center;font-weight:700}#msg.err{color:var(--bad)}
+.crow{display:grid;grid-template-columns:64px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}.crow:first-child{border-top:0}.crow img{width:64px;height:64px;border-radius:16px;object-fit:cover;background:var(--bg)}.crow b{display:block;font-size:18px;letter-spacing:-.03em}.crow a{color:inherit;text-underline-offset:3px}.acts{display:flex;gap:8px}
+.btn.sm{min-height:44px;padding:10px 20px;font-size:15px}.btn.bad{color:var(--bad);border-color:var(--bad)}#demowrap h2{margin-top:22px}.mode{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;background:var(--acc);color:#0B0B0B;border-radius:22px;padding:12px 16px;margin-bottom:6px;font-weight:700}.mode .btn.ghost{border-color:#0B0B0B;color:#0B0B0B}
+input[readonly]{opacity:.65}@media(max-width:520px){.crow{grid-template-columns:64px 1fr}.acts{grid-column:1/-1}.acts .btn{flex:1}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style></head><body>
-<header><h1>Add a cafe</h1><p>Fill it in, add photos, tap Publish. The cafe goes live in about a minute. Use an existing cafe id to update it.</p></header>
+<header><h1>Manage cafes</h1><p>Add a cafe, edit one, or delete one. Every change goes live in about a minute.</p></header>
 <main>
-<section><h2>The basics</h2>
+<section id="lst"><h2>Your cafes</h2><div id="cafelist" aria-live="polite">Loading…</div><div id="demowrap" hidden><h2>Placeholder cafes</h2><small>Made-up entries that fill out the picker. Delete them before you launch.</small><div id="demolist"></div></div></section>
+<section id="basics"><h2 id="ft">Add a cafe</h2><div class="mode" id="mode" hidden><span id="mt"></span><button class="btn ghost sm" id="new" type="button">Cancel, add a new cafe instead</button></div>
 <div class="row"><div><label for="ne">Name (English)</label><input id="ne" placeholder="Shoonya"></div><div><label for="nd">Name in Devanagari <small>optional</small></label><input id="nd" placeholder="शून्य"></div></div>
 <div class="row"><div><label for="a">Area</label><input id="a" list="areas" placeholder="Navrangpura"><datalist id="areas"><option>Navrangpura<option>Bodakdev<option>Satellite<option>Vastrapur<option>Prahlad Nagar<option>CG Road<option>Sindhu Bhavan Marg</datalist></div><div><label for="ph">Phone</label><input id="ph" inputmode="tel" placeholder="07862827658"></div></div>
 <div class="row"><div><label for="cl">Closes at</label><input id="cl" type="time" value="22:00"></div><div><label for="tg">Short tag</label><input id="tg" placeholder="concrete &amp; teak"></div></div>
 <label for="nt">Note <small>optional, e.g. Reservations required · Outdoor seating</small></label><input id="nt">
-<label for="id">Page id <small>made from the name; it becomes cafe-<span id="idv">id</span>.html</small></label><input id="id" placeholder="shoonya"></section>
+<label for="id">Page id <small>made from the name; it becomes cafe-<span id="idv">id</span>.html. It cannot be changed later.</small></label><input id="id" placeholder="shoonya"></section>
 
 <section><h2>Photos</h2><small>Add as many as you like. Tap “Make hero” to choose the cover photo. The first photo is the hero.</small>
 <p><button class="btn ghost" id="add" type="button">Add photos</button><input id="file" type="file" accept="image/*" multiple hidden></p><div id="photos"></div></section>
@@ -61,8 +65,8 @@ const tidy=s=>s.trim().replace(/(^|[\s(\[])"/g,'$1“').replace(/"/g,'”').repl
 $('hi').onclick=()=>{const t=$('rd'),a=t.selectionStart,b=t.selectionEnd;if(a<b){t.value=t.value.slice(0,a)+'=='+t.value.slice(a,b)+'=='+t.value.slice(b)}};
 $('add').onclick=()=>$('file').click();
 function shrink(f){return new Promise(r=>{const im=new Image();im.onload=()=>{const k=Math.min(1,1400/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=im.width*k;c.height=im.height*k;c.getContext('2d').drawImage(im,0,0,c.width,c.height);const u=c.toDataURL('image/webp',.8);r(u)};im.src=URL.createObjectURL(f)})}
-$('file').onchange=async e=>{for(const f of e.target.files)photos.push(await shrink(f));e.target.value='';draw()};
-function draw(){$('photos').innerHTML=photos.map((u,i)=>`<div class="ph"><img src="${u}" alt="">${i?'':'<b>Hero</b>'}<div>${i?`<button type="button" data-h="${i}">Make hero</button>`:''}<button type="button" data-d="${i}" aria-label="Remove photo">✕</button></div></div>`).join('')}
+$('file').onchange=async e=>{for(const f of e.target.files){const u=await shrink(f);photos.push({url:u,b64:u.split(',')[1]})}e.target.value='';draw()};
+function draw(){$('photos').innerHTML=photos.map((p,i)=>`<div class="ph"><img src="${esc(p.url)}" alt="">${i?'':'<b>Hero</b>'}<div>${i?`<button type="button" data-h="${i}">Make hero</button>`:''}<button type="button" data-d="${i}" aria-label="Remove photo">✕</button></div></div>`).join('')}
 $('photos').onclick=e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.h){photos.unshift(photos.splice(+b.dataset.h,1)[0])}else photos.splice(+b.dataset.d,1);draw()};
 const sel=id=>[...$(id).querySelectorAll('[aria-pressed=true]')].map(b=>b.dataset.v),lines=id=>$(id).value.split('\n').map(tidy).filter(Boolean);
 function build(){const id=$('id').value.trim(),nm=tidy($('ne').value),nd=$('nd').value.trim(),h=+$('cl').value.slice(0,2),m=+$('cl').value.slice(3,5)||0,H=h===0?24:h,pm=H>=12&&H<24;
@@ -72,12 +76,46 @@ vd:tidy($('vd').value),hl:tidy($('hl').value),rd,tk:N.map((_,i)=>tidy($('t'+i).v
 if($('nt').value.trim())c.nt=tidy($('nt').value);return c}
 function check(c){const e=[];if(!/^[a-z0-9-]{2,40}$/.test(c.id))e.push('Page id needs letters, numbers and dashes.');
 [['n','name'],['a','area'],['ph','phone'],['vd','verdict'],['hl','headline'],['rd','review'],['mn','“maybe not”'],['mns','short “maybe not”'],['bt','best time'],['si','“skip it if”']].forEach(([k,l])=>{if(!c[k])e.push('Add the '+l+'.')});
-if(c.tk.some(x=>!x))e.push('Every score needs its one-line reason.');if(!c.ord.length)e.push('Add at least one thing to order.');if(!photos.length)e.push('Add at least one photo.');return e}
+if(c.tk.some(x=>!x))e.push('Every score needs its one-line reason.');if(!c.ord.length)e.push('Add at least one thing to order.');if(!photos.length)e.push('Add at least one photo.');if(!editing&&D.cafes.concat(D.demo).some(x=>x.id===c.id))e.push('A cafe with this page id already exists. Tap Edit on it in the list, or change the page id.');if(RES.includes(c.id))e.push('That page id is reserved. Pick another.');return e}
 const warns=c=>{const w=[],t=JSON.stringify(c);if(HYPE.test(t))w.push('Hype words found ('+t.match(HYPE)[0]+'). Your voice is plain and honest.');return w};
 const say=(t,bad)=>{$('msg').textContent=t;$('msg').className=bad?'err':''};
 $('copy').onclick=async()=>{const c=build();await navigator.clipboard.writeText(JSON.stringify(c,null,1));say('Cafe data copied.')};
 $('pub').onclick=async()=>{const c=build(),e=check(c);$('warn').textContent=warns(c).join(' ');if(e.length)return say(e[0],1);
-const keys=photos.map((_,i)=>c.id+'-'+(i+1));c.im=keys;$('pub').disabled=true;say('Publishing…');
-try{const r=await fetch('/api/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({cafe:c,photos:photos.map((u,i)=>({key:keys[i],b64:u.split(',')[1]}))})});
-if(!r.ok)throw new Error(await r.text());say('Published. It will be live in about a minute: cafe-'+c.id+'.html')}catch(x){say('Could not publish: '+x.message,1)}$('pub').disabled=false};
+let n=0;[...origKeys,...photos.map(p=>p.key||'')].forEach(k=>{const m=k.match(new RegExp('^'+c.id+'-(\\d+)$'));if(m)n=Math.max(n,+m[1])});
+photos.forEach(p=>{if(!p.key)p.key=c.id+'-'+(++n)});c.im=photos.map(p=>p.key);$('pub').disabled=true;say(editing?'Saving…':'Publishing…');
+try{const r=await fetch('/api/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({edit:!!editing,cafe:c,photos:photos.filter(p=>p.b64).map(p=>({key:p.key,b64:p.b64}))})});
+if(!r.ok)throw new Error(await r.text());const was=editing;resetForm();say((was?'Saved. The changes will be live in about a minute: cafe-':'Published. It will be live in about a minute: cafe-')+c.id+'.html');loadList()}
+catch(x){say('Could not '+(editing?'save':'publish')+': '+x.message,1)}$('pub').disabled=false};
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let D={cafes:[],demo:[]},stale=false,editing=null,origKeys=[];
+const nm=c=>String(c.n||c.id).split(' | ')[0],RES=['detail'];
+const imgTag=(k,cls)=>`<img src="img/${esc(k)}-sm.webp" alt="" onerror="if(!this.dataset.f){this.dataset.f=1;this.src=this.src.replace('-sm.webp','.webp')}else this.style.visibility='hidden'">`;
+const crow=(c,demo)=>`<div class="crow">${imgTag((c.im||[])[0])}<div><b>${esc(nm(c))}</b><small>${esc(c.a||'')}${demo?'':' · '+(+c.sc).toFixed(1)+'/10'}</small>${demo?'':`<small><a href="cafe-${esc(c.id)}.html" target="_blank" rel="noopener">View page</a></small>`}</div><div class="acts">${demo?'':`<button class="btn ghost sm" type="button" data-e="${esc(c.id)}">Edit</button>`}<button class="btn ghost sm bad" type="button" data-x="${esc(c.id)}">Delete</button></div></div>`;
+function renderList(){$('cafelist').innerHTML=(D.cafes.length?D.cafes.map(c=>crow(c,0)).join(''):'<p>No cafes yet. Add your first one below.</p>')+(stale?'<small>Showing the last published list. The live list could not be read, so a change you just made may not show yet.</small>':'');
+$('demowrap').hidden=!D.demo.length;$('demolist').innerHTML=D.demo.map(c=>crow(c,1)).join('')}
+async function loadList(){try{const r=await fetch('/api/save',{cache:'no-store'});if(!r.ok)throw 0;const j=await r.json();if(!Array.isArray(j.cafes))throw 0;D={cafes:j.cafes,demo:j.demo||[]};stale=false}
+catch(e){try{const j=await(await fetch('data/cafes.json')).json();D={cafes:j.cafes||[],demo:j.demo||[]};stale=true}catch(x){$('cafelist').textContent='Could not load your cafes. Reload the page.';return}}renderList()}
+function resetForm(){editing=null;origKeys=[];photos=[];idTouched=false;
+['ne','nd','a','ph','tg','nt','id','vd','hl','rd','mn','mns','bt','ord','skp','si'].forEach(k=>$(k).value='');$('cl').value='22:00';
+N.forEach((_,i)=>{$('s'+i).value=7;$('t'+i).value=''});upd();document.querySelectorAll('#p button,#cr button').forEach(b=>b.setAttribute('aria-pressed','false'));
+$('id').readOnly=false;$('idv').textContent='id';$('mode').hidden=true;$('ft').textContent='Add a cafe';$('pub').textContent='Publish';$('warn').textContent='';draw()}
+function loadCafe(c){if(!c)return;resetForm();editing=c.id;origKeys=[...(c.im||[])];
+const [en,dv]=String(c.n||'').split(' | ');$('ne').value=en||'';$('nd').value=dv||'';$('a').value=c.a||'';$('ph').value=c.ph||'';
+const H=Math.floor(c.cl)%24,M=Math.round((c.cl%1)*60);$('cl').value=String(H).padStart(2,'0')+':'+String(M).padStart(2,'0');
+$('tg').value=c.tg||'';$('nt').value=c.nt||'';$('id').value=c.id;$('idv').textContent=c.id;$('id').readOnly=true;idTouched=true;
+(c.s||[]).forEach((v,i)=>{$('s'+i).value=v});(c.tk||[]).forEach((t,i)=>{$('t'+i).value=t});upd();
+$('vd').value=c.vd||'';$('hl').value=c.hl||'';$('rd').value=String(c.rd||'').replace(/<mark>([\s\S]*?)<\/mark>/g,'==$1==');$('mn').value=c.mn||'';$('mns').value=c.mns||'';$('bt').value=c.bt||'';
+$('ord').value=(c.ord||[]).join('\n');$('skp').value=(c.skp||[]).join('\n');$('si').value=c.si||'';
+document.querySelectorAll('#p button').forEach(b=>b.setAttribute('aria-pressed',(c.p||[]).includes(b.dataset.v)));document.querySelectorAll('#cr button').forEach(b=>b.setAttribute('aria-pressed',(c.cr||[]).includes(b.dataset.v)));
+photos=origKeys.map(k=>({key:k,url:'img/'+k+'-sm.webp'}));draw();
+$('ft').textContent='Edit '+nm(c);$('mt').textContent='You are editing “'+nm(c)+'”. The page id cannot change.';$('mode').hidden=false;$('pub').textContent='Save changes';
+$('warn').textContent=Math.abs(avg()-c.sc)>0.04?'Heads up: this cafe’s saved overall is '+(+c.sc).toFixed(1)+', but its five scores average '+avg().toFixed(1)+'. Saving will use '+avg().toFixed(1)+'.':'';
+say('Editing “'+nm(c)+'”. Change what you need, then tap Save changes.');$('basics').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'})}
+async function del(id){const c=D.cafes.find(x=>x.id===id)||D.demo.find(x=>x.id===id),demo=!D.cafes.some(x=>x.id===id);if(!c)return;
+if(!confirm('Delete “'+nm(c)+'”?\n\n'+(demo?'It is a placeholder entry.':'Its page, share image and photos will be removed.')+' It disappears from the site in about a minute. This cannot be undone from this page.'))return;
+say('Deleting…');try{const r=await fetch('/api/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'delete',id})});if(!r.ok)throw new Error(await r.text());
+if(editing===id)resetForm();say('Deleted “'+nm(c)+'”. It will be gone from the site in about a minute.');loadList()}catch(x){say('Could not delete: '+x.message,1)}}
+$('lst').onclick=e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.e)loadCafe(D.cafes.find(c=>c.id===b.dataset.e));else if(b.dataset.x)del(b.dataset.x)};
+$('new').onclick=()=>{resetForm();say('')};
+loadList();
 </script></body></html>
