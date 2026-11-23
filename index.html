@@ -203,11 +203,11 @@ document.addEventListener('scroll',e=>{const g=e.target;if(!g.classList||!g.clas
 $('#sf').addEventListener('submit',e=>{e.preventDefault();const v=$('#si').value.trim();if(!v)return toast('type a cafe name first');location.href='suggest.html?q='+encodeURIComponent(v)});
 /* scroll */
 const hd=$('#hd'),pg=$('#pg'),dk=$('#tabs');let tk=false;
-const onS=()=>{tk=false;const y=scrollY,vh=innerHeight,h=document.documentElement.scrollHeight-vh;pg.style.transform=`scaleX(${h>0?y/h:0})`;hd.classList.toggle('s',y>vh*.7);if(y<vh*.6)dl.forEach(a=>a.classList.toggle('on',a.getAttribute('href')=='#top'))};
+const onS=()=>{tk=false;const y=scrollY,vh=innerHeight,h=document.documentElement.scrollHeight-vh;pg.style.transform=`scaleX(${h>0?y/h:0})`;hd.classList.toggle('s',y>vh*.7)};
 addEventListener('scroll',()=>{if(!tk){tk=true;requestAnimationFrame(onS)}},{passive:true});
 new IntersectionObserver(en=>{const r=en[0].intersectionRatio;if(!rm)sv.classList.toggle('play',r>=.6);dk.classList.toggle('hide',r>=.35)},{threshold:[0,.35,.6]}).observe(sv);
 const once=(el,fn,th)=>new IntersectionObserver((en,o)=>en.forEach(x=>{if(x.isIntersecting){fn(x.target);o.disconnect()}}),{threshold:th||.3}).observe(el);
 $$('.tr').forEach(el=>once(el,x=>x.classList.add("vis"),.4));
-const dl=$$('#tabs a'),io=new IntersectionObserver(en=>en.forEach(x=>{if(x.isIntersecting)dl.forEach(a=>a.classList.toggle('on',a.getAttribute('href')=='#'+x.target.id))}),{rootMargin:'-45% 0px -50% 0px'});['explore','story','list','pick','how'].forEach(i=>io.observe($('#'+i)));
+const dl=$$('#tabs a'),io=new IntersectionObserver(en=>en.forEach(x=>{const k=x.isIntersecting?'#how':'#top';dl.forEach(a=>{const h=a.getAttribute('href');if(h=='#top'||h=='#how')a.classList.toggle('on',h==k)})}),{rootMargin:'-45% 0px -50% 0px'});io.observe($('#how'));
 save();onS();
 </script></body></html>
