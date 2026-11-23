@@ -101,9 +101,14 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
 @media(max-width:700px){.hc{padding-bottom:calc(104px + env(safe-area-inset-bottom,0px))}#ch{padding-left:18px;padding-right:18px}header nav a{display:none}.row{margin-left:-18px;margin-right:-18px;padding-left:18px;padding-right:18px}#mp,#mw{margin:0;padding:0}.mm>div:first-child{order:2}#t{bottom:calc(86px + env(safe-area-inset-bottom,0px))}footer{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}.hw{border-radius:32px}.end{border-radius:32px 32px 0 0}}
 @media(min-width:701px){#dock{display:none}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation-duration:.01s!important;animation-delay:0s!important;transition:none!important}}
+/* bottom nav (self-contained) */
+#tabs{position:fixed;left:50%;bottom:calc(12px + env(safe-area-inset-bottom,0px));transform:translate(-50%,0);z-index:55;display:flex;gap:2px;padding:6px;max-width:calc(100vw - 16px);border-radius:32px;background:color-mix(in srgb,var(--bg) 80%,transparent);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--line);box-shadow:0 10px 30px #0003;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+#tabs.hide{transform:translate(-50%,160%)}#tabs a{padding:12px 13px;border-radius:26px;font-size:14px;font-weight:500;white-space:nowrap;color:var(--ink)}#tabs a.on{background:var(--ink);color:var(--bg)}
+@media(max-width:380px){#tabs a{padding:12px 9px;font-size:13px}}
+@media(max-width:700px){footer{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}}
 </style></head><body>
 <div id="pg"></div>
-<header id="hd"></header><script>SITE.nav()</script><script src="nav.js"></script>
+<header id="hd"></header><script>SITE.nav()</script>
 <main id="top">
 <section class="hero"><div class="w hc"><div>
 <div class="lbl fade"><i></i>Ahmedabad cafe reviews</div>
@@ -134,6 +139,7 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
 <form class="sg" id="sf"><input id="si" placeholder="a cafe we should visit?" aria-label="suggest a cafe"><button class="pill">send it</button></form></div>
 <footer data-foot></footer><script>SITE.foot()</script></section>
 </main>
+<nav id="tabs" aria-label="site"><a href="#top" class="on">Home</a><a href="list.html">List</a><a href="#how">How we score</a><a href="about.html">Our story</a></nav>
 <div class="shd" id="shd"><div class="bk" data-x></div><div class="sh" role="dialog" aria-label="saved cafes"><div class="hd"></div><h3>saved for later</h3><div id="sl"></div><a class="pill" id="sw" target="_blank" rel="noopener">send to the group chat</a></div></div>
 <div id="t" role="status"></div>
 <script>
