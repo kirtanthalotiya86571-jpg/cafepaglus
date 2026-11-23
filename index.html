@@ -85,13 +85,13 @@ h1{font-size:clamp(38px,10.6vw,64px);line-height:.98;font-weight:800;letter-spac
 footer{color:#ffffff80;font-size:12px;margin-top:50px;padding:0 18px calc(10px + env(safe-area-inset-bottom,0px))}
 /* dock, sheet, toast */
 #dock{position:fixed;left:50%;bottom:calc(12px + env(safe-area-inset-bottom,0px));transform:translate(-50%,0);z-index:55;display:flex;gap:2px;padding:6px;border-radius:32px;background:color-mix(in srgb,var(--bg) 80%,transparent);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--line);box-shadow:0 10px 30px #0003;transition:transform .5s cubic-bezier(.2,.8,.2,1)}#dock.hide{transform:translate(-50%,160%)}
-#dock a{padding:12px 15px;border-radius:26px;font-size:14px;font-weight:500}#dock a.on{background:var(--ink);color:var(--bg)}
+#dock a{padding:12px 13px;white-space:nowrap;border-radius:26px;font-size:14px;font-weight:500}#dock a.on{background:var(--ink);color:var(--bg)}
 .shd{position:fixed;inset:0;z-index:80;visibility:hidden;transition:visibility 0s .45s}.shd.open{visibility:visible;transition:none}.bk{position:absolute;inset:0;background:#000a;opacity:0;transition:opacity .35s}.open .bk{opacity:1}
 .sh{position:absolute;left:0;right:0;bottom:0;margin:0 auto;max-width:560px;max-height:80svh;overflow:auto;background:var(--card);border-radius:30px 30px 0 0;padding:12px 22px calc(26px + env(safe-area-inset-bottom,0px));transform:translateY(100%);transition:transform .45s cubic-bezier(.2,.8,.2,1)}.open .sh{transform:none}
 .hd{width:44px;height:5px;border-radius:3px;background:var(--line);margin:0 auto 16px}.sh h3{font-size:26px;font-weight:800;letter-spacing:-.04em}.si{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 0;border-top:1px solid var(--line)}.si b{display:block}.si small{color:var(--mut)}.si button{color:var(--mut);padding:10px;font-size:14px;text-decoration:underline}.sh .pill{margin-top:12px;width:100%}
 #t{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:11px 20px;border-radius:22px;font-size:13px;opacity:0;pointer-events:none;transition:opacity .25s;z-index:90;white-space:nowrap}#t.on{opacity:1}
 /* explore + review link */
-.ex{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}@media(min-width:860px){.ex{grid-template-columns:repeat(4,1fr);gap:14px}}
+.ex{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}.ex a:first-child{grid-column:1/-1;min-height:150px}@media(min-width:860px){.ex{grid-template-columns:repeat(3,1fr);gap:14px}.ex a:first-child{grid-column:auto;min-height:170px}}
 .ex a{display:flex;flex-direction:column;justify-content:space-between;gap:28px;min-height:170px;padding:18px;border-radius:26px;background:var(--b);color:#0B0B0B;transition:transform .2s}.ex a:hover{transform:translateY(-3px)}.ex a:active{transform:scale(.97)}
 .ex small{font-size:13px;font-weight:600;opacity:.7}.ex b{display:block;font-size:clamp(21px,5.2vw,27px);line-height:1.02;font-weight:800;letter-spacing:-.045em;margin-top:4px}
 .ex span{display:flex;justify-content:space-between;align-items:flex-end;gap:8px;font-size:14px;line-height:1.25}.ex i{font-style:normal;flex:none;width:36px;height:36px;border-radius:50%;background:#0B0B0B;color:#fff;display:grid;place-items:center;font-size:18px}
@@ -109,13 +109,12 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
 <div class="lbl fade"><i></i>Ahmedabad cafe reviews</div>
 <h1 id="h1"></h1>
 <p class="lede fade">We visit every cafe ourselves and score what matters: food, vibe, service and value. So you know before you go.</p>
-<a class="pill fade" href="#list">See the scores</a> <a class="pill fade" href="pick.html" style="margin-top:10px;background:transparent;color:inherit;box-shadow:inset 0 0 0 2px currentColor">Pick one for me</a>
+<a class="pill fade" href="#list">See the scores</a> <a class="pill fade" href="about.html" style="margin-top:10px;background:transparent;color:inherit;box-shadow:inset 0 0 0 2px currentColor">Our story</a>
 <p class="tr0 fade"><b>✓</b> We pay for our own meals. No sponsored reviews.</p></div>
 <div class="hp fade" id="hp" role="group" aria-label="photos from cafes we’ve scored, swipe to see more" tabindex="0"></div></div></section>
 <section class="sec w" id="explore" style="padding-bottom:0"><div class="script" style="font-size:34px">start here</div><h2>Not sure where to go? Pick a door.</h2>
 <div class="ex">
-<a style="--b:var(--acc)" href="#list"><div><small>browse</small><b>Every cafe, ranked</b></div><span><p id="exn">Scored on five things</p><i>→</i></span></a>
-<a class="dk" style="--b:var(--cas)" href="pick.html"><div><small>can’t decide?</small><b>Pick one for me</b></div><span><p>4 taps. 1 cafe.</p><i>→</i></span></a>
+<a style="--b:var(--acc)" href="#list"><div><small>browse</small><b>The list</b></div><span><p id="exn">Every cafe, scored 5 ways</p><i>→</i></span></a>
 <a style="--b:var(--blue)" href="#how"><div><small>the method</small><b>How we score</b></div><span><p>5 questions, not 1 star</p><i>→</i></span></a>
 <a style="--b:var(--sau)" href="about.html"><div><small>the why</small><b>Our story</b></div><span><p>Why we built this</p><i>→</i></span></a>
 </div></section>
@@ -135,7 +134,7 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
 <form class="sg" id="sf"><input id="si" placeholder="a cafe we should visit?" aria-label="suggest a cafe"><button class="pill">send it</button></form></div>
 <footer data-foot></footer><script>SITE.foot()</script></section>
 </main>
-<nav id="dock" aria-label="site"><a href="#list">Cafes</a><a href="pick.html">Pick</a><a href="#how">Scoring</a><a href="about.html">Story</a></nav>
+<nav id="dock" aria-label="site"><a href="#top" class="on">Home</a><a href="#list">List</a><a href="#how">How we score</a><a href="about.html">Our story</a></nav>
 <div class="shd" id="shd"><div class="bk" data-x></div><div class="sh" role="dialog" aria-label="saved cafes"><div class="hd"></div><h3>saved for later</h3><div id="sl"></div><a class="pill" id="sw" target="_blank" rel="noopener">send to the group chat</a></div></div>
 <div id="t" role="status"></div>
 <script>
@@ -205,11 +204,11 @@ document.addEventListener('scroll',e=>{const g=e.target;if(!g.classList||!g.clas
 $('#sf').addEventListener('submit',e=>{e.preventDefault();const v=$('#si').value.trim();if(!v)return toast('type a cafe name first');location.href='suggest.html?q='+encodeURIComponent(v)});
 /* scroll */
 const hd=$('#hd'),pg=$('#pg'),dk=$('#dock');let tk=false;
-const onS=()=>{tk=false;const y=scrollY,vh=innerHeight,h=document.documentElement.scrollHeight-vh;pg.style.transform=`scaleX(${h>0?y/h:0})`;hd.classList.toggle('s',y>vh*.7)};
+const onS=()=>{tk=false;const y=scrollY,vh=innerHeight,h=document.documentElement.scrollHeight-vh;pg.style.transform=`scaleX(${h>0?y/h:0})`;hd.classList.toggle('s',y>vh*.7);if(y<vh*.6)dl.forEach(a=>a.classList.toggle('on',a.getAttribute('href')=='#top'))};
 addEventListener('scroll',()=>{if(!tk){tk=true;requestAnimationFrame(onS)}},{passive:true});
 new IntersectionObserver(en=>{const r=en[0].intersectionRatio;if(!rm)sv.classList.toggle('play',r>=.6);dk.classList.toggle('hide',r>=.35)},{threshold:[0,.35,.6]}).observe(sv);
 const once=(el,fn,th)=>new IntersectionObserver((en,o)=>en.forEach(x=>{if(x.isIntersecting){fn(x.target);o.disconnect()}}),{threshold:th||.3}).observe(el);
 $$('.tr').forEach(el=>once(el,x=>x.classList.add("vis"),.4));
-const dl=$$('#dock a'),io=new IntersectionObserver(en=>en.forEach(x=>{if(x.isIntersecting)dl.forEach(a=>a.classList.toggle('on',a.getAttribute('href')=='#'+x.target.id))}),{rootMargin:'-45% 0px -50% 0px'});['list','how'].forEach(i=>io.observe($('#'+i)));
+const dl=$$('#dock a'),io=new IntersectionObserver(en=>en.forEach(x=>{if(x.isIntersecting)dl.forEach(a=>a.classList.toggle('on',a.getAttribute('href')=='#'+x.target.id))}),{rootMargin:'-45% 0px -50% 0px'});['explore','story','list','pick','how'].forEach(i=>io.observe($('#'+i)));
 save();onS();
 </script></body></html>
